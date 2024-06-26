@@ -11,6 +11,7 @@ interface ModalProps {
 
 const Modal = ({ isOpen, onClose, content, type }: ModalProps) => {
   const modalRef = useRef<HTMLDivElement>(null);
+  console.log(content);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {

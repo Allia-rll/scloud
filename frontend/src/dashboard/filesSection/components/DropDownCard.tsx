@@ -2,7 +2,7 @@
 import React from "react";
 import { useState } from "react";
 
-export default function DropDownCard({ id }: { id: number }) {
+export default function DropDownCard({ id, openInNewTab, download }: { id: number, openInNewTab: () => void, download: () => void}) {
     const [isOpen, setIsOpen] = useState(false);
 
     const handleClick = () => {
@@ -36,25 +36,19 @@ export default function DropDownCard({ id }: { id: number }) {
           <li>
             <a
               href="#"
+              onClick={download}
               className="block px-4 py-2 text-sm text-gray-200 hover:bg-gray-600 hover:text-white"
             >
-              Edit
+              Download
             </a>
           </li>
           <li>
             <a
               href="#"
+              onClick={openInNewTab}
               className="block px-4 py-2 text-sm text-gray-200 hover:bg-gray-600 hover:text-white"
             >
-              Export Data
-            </a>
-          </li>
-          <li>
-            <a
-              href="#"
-              className="block px-4 py-2 text-sm text-gray-200 hover:bg-gray-600 hover:text-white"
-            >
-              Delete
+              Open in a New Tab
             </a>
           </li>
         </ul>

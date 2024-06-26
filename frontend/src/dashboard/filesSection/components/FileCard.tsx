@@ -19,20 +19,29 @@ export default function FileCard({ file }: FileCardProps) {
     setModalOpen(false);
   };
 
-  const handleNewView = () => {
+  const openFileInNewTab = () => {
     window.open(file.url.webViewLink, "_blank");
+    console.log("webViewLink", file.url.webViewLink)
   };
+  
+  const downloadFile = () => {
+    window.open(file.url.webContentLink, "_blank");
+    console.log("webContentLink", file.url.webContentLink)
+  }
+
+  const deleteFile = () => {
+    console.log("delete file")
+  }
 
   return (
     <div
-      className="max-w-sm bg-gray-800 border border-gray-700 rounded-lg shadow"
-      {...(file.type.includes("image") ? {} : { onClick: handleNewView })}
+      className="max-w-sm bg-gray-800 border border-gray-700 rounded-lg shadow" 
     >
       <div className="rounded-t-lg my-2 h-6 flex items-center">
         <h5 className="flex-grow mx-4 overflow-hidden text-ellipsis whitespace-nowrap text-base font-bold tracking-tight text-white">
           {file.filename}
         </h5>
-        <DropDownCard key={file.codfile} id={file.codfile} />
+        <DropDownCard key={file.codfile} id={file.codfile} openInNewTab={openFileInNewTab} download={downloadFile} />
       </div>
       <div
         className="max-w-sm h-24 mx-4 cursor-pointer"
@@ -40,11 +49,7 @@ export default function FileCard({ file }: FileCardProps) {
       >
         <img
           className="rounded-lg object-cover w-full h-full"
-          src={
-            file.type.includes("image")
-              ? file.url.thumbnailLink
-              : "/icons/default-file-icon.png"
-          }
+          src={file.url.thumbnailLink}
           alt={file.filename}
         />
       </div>
@@ -53,14 +58,12 @@ export default function FileCard({ file }: FileCardProps) {
           Creado el: {file.created_at}
         </p>
       </div>
-      {file.type.includes("image") && (
-        <Modal
+      <Modal
           isOpen={isModalOpen}
           onClose={handleCloseModal}
-          content={file.url.thumbnailLink}
+          content={file.url.webContentLink}
           type={file.type}
         />
-      )}
     </div>
   );
 }

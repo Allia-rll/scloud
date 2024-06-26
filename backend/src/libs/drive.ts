@@ -47,7 +47,7 @@ class Drive {
     });
     const res = await drive.files.get({
       fileId: id,
-      fields: "webViewLink, webContentLink, thumbnailLink",
+      fields: "webViewLink, webContentLink, thumbnailLink, ",
     });
     return res.data;
   }
@@ -73,7 +73,8 @@ class Drive {
   }
 }
 
-Drive.init(path.join("D:\\Next Projects\\Proyecto-BD\\backend\\", "scloud-creden.json"), [
+// TODO: Calculate path to credentials file
+Drive.init(path.join("C:\\Users\\Jose\\Downloads\\scloud\\backend\\", "scloud-creden.json"), [
   "https://www.googleapis.com/auth/drive",
 ]);
 
