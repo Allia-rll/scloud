@@ -45,7 +45,7 @@ export default function FileCard({ file }: FileCardProps) {
       </div>
       <div
         className="max-w-sm h-24 mx-4 cursor-pointer"
-        onClick={handleOpenModal}
+        onClick={openFileInNewTab}
       >
         <img
           className="rounded-lg object-cover w-full h-full"

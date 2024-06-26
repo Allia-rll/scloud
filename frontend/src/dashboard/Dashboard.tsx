@@ -22,6 +22,7 @@ export default function Dashboard() {
     })
       .then((res) => res.json())
       .then((data) => {
+        console.log(data);
         setFiles(data.data);
       })
       .catch((err) => console.error(err));

@@ -10,7 +10,18 @@ const auth = new google.auth.GoogleAuth({
   keyFile: KEYFILEPATH,
   scopes: SCOPES,
 });
- */
+*/
+
+interface AuthCredentials {
+  type: string;
+  project_id: string;
+  private_key_id: string;
+  private_key: string;
+  client_email: string;
+  client_id: string;
+  universe_domain: string;
+}
+
 class Drive {
   private static instance: Drive;
   private auth: any;
@@ -47,7 +58,7 @@ class Drive {
     });
     const res = await drive.files.get({
       fileId: id,
-      fields: "webViewLink, webContentLink, thumbnailLink, ",
+      fields: "webViewLink, webContentLink, thumbnailLink",
     });
     return res.data;
   }
@@ -74,7 +85,7 @@ class Drive {
 }
 
 // TODO: Calculate path to credentials file
-Drive.init(path.join("C:\\Users\\Jose\\Downloads\\scloud\\backend\\", "scloud-creden.json"), [
+Drive.init(path.join("D:\\Next Projects\\Proyecto-BD\\backend\\", "scloud-creden.json"), [
   "https://www.googleapis.com/auth/drive",
 ]);
 
