@@ -1,7 +1,9 @@
 import { Request, Response } from "express";
 import FileService from "../services/file.service";
+import CredsService from "../services/credentials.service";
 
 const service = new FileService();
+const credService = new CredsService();
 
 const create = async (req: Request, res: Response) => {
   try {
@@ -21,23 +23,15 @@ const create = async (req: Request, res: Response) => {
   }
 };
 
-const getById = async (req: Request, res: Response) => {
+const getByFPyto = async (req: Request, res: Response) => {
   try {
-    const response = await service.getFileByOwner(req.params.id);
+    const { codfpyto, codcred } = req.body;
+    const [ creds ] = await credService.getAuthCredsById(codcred);
+    const response = await service.getByFPyto(codfpyto, creds);
     res.json({ success: true, data: response });
   } catch (error) {
     res.status(400).send({ message: "error.message" });
   }
 };
 
-const getFilesByOwner = async (req: Request, res: Response) => {
-  try {
-    const { idOwner } = req.body;
-    const response = await service.getFileByOwner(idOwner);
-    res.json({ success: true, data: response });
-  } catch (error) {
-    res.status(400).send({ message: "error.message" });
-  }
-};
-
-export default { create, getById, getFilesByOwner };
+export default { create, getByFPyto };

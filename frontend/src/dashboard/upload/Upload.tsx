@@ -8,7 +8,7 @@ import { Navigate } from "react-router-dom";
 
 export default function Upload() {
   const cia = useStore((state) => state.session.cia);
-  if (!cia) return <Navigate to="login" />;
+  if (!cia) return <Navigate to="/" />;
 
   const [open, setOpen] = useState(false);
   const [file, setFile] = useState<File | null>(null);
@@ -17,9 +17,11 @@ export default function Upload() {
     const formData = new FormData();
     formData.append("file", file as File);
     formData.append("filename", data.filename);
-    formData.append("codproyecto", data.codproyecto as string);
+    formData.append("codfpyto", "1");
     formData.append("description", data.description || "");
-    formData.append("codciaowner", cia.codcia.toString());
+    formData.append("codfcia", "1");
+    //INSERCION DE COD CRED rgb(255, 255, 255)
+    formData.append("codcred", "1");
 
     const res = await fetch("http://localhost:5050/api/v1/files", {
       method: "POST",
@@ -32,6 +34,8 @@ export default function Upload() {
 
     setOpen(false);
     setFile(null);
+
+    return <Navigate to="dashboard" />;
   };
 
   const onFileAdded = (file: File) => {
@@ -39,7 +43,7 @@ export default function Upload() {
   };
 
   return (
-    <div className="flex flex-col flex-shrink-0 items-end">
+    <div className="flex flex-col mr-10 flex-shrink-0 items-end">
       <UploadButton
         open={open}
         onClick={() => {

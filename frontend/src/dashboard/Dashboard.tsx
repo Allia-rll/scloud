@@ -18,7 +18,7 @@ export default function Dashboard() {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ idOwner: cia.codcia }),
+      body: JSON.stringify({ codcred: 1, codfpyto: 1 }),
     })
       .then((res) => res.json())
       .then((data) => {

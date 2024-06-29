@@ -37,6 +37,42 @@ class UserService {
       vigente: result[0].VIGENTE,
     };
   }
+
+  async getCiasWhitoutFolder(codcred: string) {
+    const db1 = db.getInstance();
+    const result = await db1.execute({
+      query: `SELECT * FROM CIA WHERE CODCIA NOT IN (SELECT CODCIAOW FROM FOLDERCIA WHERE CODCRED = :cod)`,
+      params: [codcred],
+    }) as CiaSchema[];
+
+    const ciasFormat = result.map((cia) => {
+      return {
+        codcia: cia.CODCIA,
+        descia: cia.DESCIA,
+        descorta: cia.DESCORTA,
+        vigente: cia.VIGENTE,
+      }
+    });
+    return ciasFormat;
+  }
+
+  async getByFolder(codfcia: string) {
+    const db1 = db.getInstance();
+    const result = await db1.execute({
+      query: `SELECT * FROM CIA WHERE CODCIA IN (SELECT CODCIAOW FROM FOLDERCIA WHERE CODFCIA = :cod)`,
+      params: [codfcia],
+    }) as CiaSchema[];
+
+    const ciasFormat = result.map((cia) => {
+      return {
+        codcia: cia.CODCIA,
+        descia: cia.DESCIA,
+        descorta: cia.DESCORTA,
+        vigente: cia.VIGENTE,
+      }
+    });
+    return ciasFormat[0];
+  }
 }
 
 export default UserService;

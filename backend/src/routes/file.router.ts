@@ -5,9 +5,8 @@ const upload = multer();
 
 const router = express.Router();
 router
-  .get("/:id", fileController.getById)
   .post("/" ,upload.any(), fileController.create);
 
-router.post("/byOwner", fileController.getFilesByOwner)
+router.post("/byfpyto", fileController.getByFPyto)
 
 export default router;

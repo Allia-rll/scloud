@@ -3,5 +3,7 @@ export interface FileInput {
   type: string;
   url: string;
   description?: string;
-  codproyecto: string | number;
+  codfpyto: string | number;
+  codfcia: string | number;
+  codcred: string | number;
 }

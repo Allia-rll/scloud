@@ -7,9 +7,8 @@ export interface FileSchema {
   URL?: urls; // para el front
   TYPE: string;
   CREATED_AT?: Date;
-  CODCIAOWNER: number;
+  CODFPYTO: number;
   DESCRIPTION: string;
-  CODPROYECTO: number;
 }
 
 type Files = Record<number, FileSchema>;

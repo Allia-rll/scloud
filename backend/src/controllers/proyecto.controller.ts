@@ -12,5 +12,19 @@ const getProyectsbyCia = async (req: Request, res: Response) => {
   }
 };
 
+const getWithoutFolder = async (req: Request, res: Response) => {
+  try {
+    const { codfcia, codcia } = req.body;
+    if (codfcia === undefined || codcia === undefined) {
+      throw new Error("Missing required fields");
+    }
 
-export default { getProyectsbyCia };
+    const response = await service.getProyectWithOutFolder(codfcia, codcia);
+    res.json({ success: true, data: response });
+  } catch (error) {
+    res.status(400).send({ message: "Error getting Proyecto Information" });
+  }
+};
+
+
+export default { getProyectsbyCia, getWithoutFolder };

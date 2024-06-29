@@ -1,21 +1,25 @@
 import bd from "../libs/sequelize";
 import { FileSchema, type urls } from "../db/models/file.model";
-import { DFile } from "../db/models";
-import drive from "../libs/drive";
+import CredsService from "./credentials.service";
+import drive, { AuthCredentials } from "../libs/drive";
+import oracledb from "oracledb";
+
+const creds = new CredsService();
 
 class FileService {
   constructor() {}
 
-  async getFileByOwner(id: string) {
+  async getByFPyto(codfpyto: string, auth: AuthCredentials) {
     const bd1 = bd.getInstance();
     const result = (await bd1.execute({
-      query: `SELECT * FROM files WHERE codciaowner = :id`,
-      params: [id],
+      query: `SELECT * FROM files WHERE codfpyto = :id`,
+      params: [codfpyto],
     })) as FileSchema[];
+    console.log(result);
     const res_urls = await Promise.all(
       result.map(async (file) => {
         const { webViewLink, thumbnailLink, webContentLink } =
-          (await this.getUrl(file.URL_ID)) as urls;
+          (await this.getUrl(file.URL_ID, auth)) as urls;
 
         return { ...file, URL: { webViewLink, thumbnailLink, webContentLink } };
       })
@@ -27,36 +31,65 @@ class FileService {
         url: file.URL,
         type: file.TYPE,
         created_at: file.CREATED_AT,
-        codciaowner: file.CODCIAOWNER,
+        codfpyto: file.CODFPYTO,
         description: file.DESCRIPTION,
-        codproyecto: file.CODPROYECTO,
       };
     });
     return files;
   }
 
-  async getUrl(id: string) {
-    const drive1 = drive.getInstance();
-    const res = await drive1.generatePublicUrl(id);
+  async getUrl(id: string, auth: AuthCredentials) {
+    const res = await drive.generatePublicUrl(id, auth);
     return res;
   }
 
   async createFile(body: any, file: Express.Multer.File) {
-    const drive1 = drive.getInstance();
-    const res = await drive1.uploadFile(file);
+    const { codcred, codfcia, codfpyto } = body;
+    const [credes] = await creds.getAuthCredsById(codcred);
+    const bd2 = bd.getInstance();
+    const result = (await bd2.execute({
+      query: `SELECT idfpyto FROM folderpyto WHERE codfpyto = :codfpyto AND codfciapar = :codfcia`,
+      params: [codfpyto, codfcia],
+    })) as { IDFPYTO: string }[];
+    if (result.length === 0) {
+      throw new Error("Folder Proyecto not found");
+    }
+
+    const folderPYTO = result[0].IDFPYTO;
+    const res = await drive.uploadFile(file, credes, [folderPYTO]);
     const bd1 = bd.getInstance();
-    await bd1.execute({
-      query: `INSERT INTO files (filename, url_id, type, codciaowner, description, codproyecto) 
-              VALUES (:filename_i, :url_id_i, :type_i, :owner_i, :description_i, :id_project_i)`,
-      params: [
-        body.filename,
-        res.id,
-        res.mimeType,
-        body.codciaowner,
-        body.description,
-        body.codproyecto,
-      ],
-    });
+
+    if (!res.id || !res.mimeType) throw new Error("Error uploading file");
+
+    const newFile = await bd1.executeBinds({
+      query: `INSERT INTO files (filename, url_id, type, description, codfpyto) 
+              VALUES (:filename_i, :url_id_i, :type_i, :description_i, :codfpyto_i)
+              RETURNING codfile, created_at INTO :codfile_o, :created_at_o`,
+      params: {
+        filename_i: body.filename,
+        url_id_i: res.id,
+        type_i: res.mimeType,
+        description_i: body.description,
+        codfpyto_i: codfpyto,
+        codfile_o: { type: oracledb.NUMBER, dir: oracledb.BIND_OUT },
+        created_at_o: { type: oracledb.DATE, dir: oracledb.BIND_OUT },
+      },
+    }) as Record<string, Array<string | number>>;
+
+    const { webViewLink, thumbnailLink, webContentLink } = (await this.getUrl(
+      res.id as string,
+      credes
+    )) as urls;
+
+    return {
+      codfile: newFile.codfile_o[0],
+      filename: body.filename,
+      url: { webViewLink, thumbnailLink, webContentLink },
+      type: res.mimeType,
+      created_at: newFile.created_at_o[0],
+      codfpyto: codfpyto,
+      description: body.description,
+    };
   }
 }
 

@@ -5,4 +5,6 @@ const router = express.Router();
 router
   .get("/:codcia", proyectoController.getProyectsbyCia)
 
+router.post("/withoutfolder", proyectoController.getWithoutFolder);
+
 export default router;
