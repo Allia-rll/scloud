@@ -1,11 +1,10 @@
 import { useLocation } from "react-router-dom";
-import LogOut from "../dashboard/components/LogOut";
 import Upload from "../FilesSections/upload/Upload";
 import { useRoutes } from "../hooks/useRoutes";
-import ModalButton from "./ModalButton";
 import AddCredential from "../InstanceSection/components/AddCredential";
 import AddFCia from "../CiasSection/components/AddFCia";
 import AddFProyecto from "../ProjectSection/components/AddFProject";
+import LogOut from "../CiasSection/components/LogOut";
 
 export default function ButtonsGroup() {
   const location = useLocation();
@@ -23,6 +22,7 @@ export default function ButtonsGroup() {
     return (
       <div className="flex-grow flex right-24 justify-end">
         <AddFProyecto />
+        <LogOut />
       </div>
     );
   }
@@ -44,9 +44,6 @@ export default function ButtonsGroup() {
   }
 
   return (
-    <div className="flex-grow flex right-24 justify-end">
-      <Upload />
-      <LogOut />
-    </div>
+    <></>
   );
 }

@@ -1,22 +1,18 @@
-import { useParams, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Folder } from "../components/FolderCard";
-import { useEffect, useState } from "react";
-import { set } from "react-hook-form";
-import { Credentials } from "../types/models/credentials";
-import { useFCia, useFCreds } from "../store/store";
 import { useRouter } from "../store/store";
 
 export const useRoutes = () => {
   const navigate = useNavigate();
-  const { params, setpCred, setpCia, setpProyecto, clean } = useRouter(
-    (state) => state
-  );
+  const { params, setpCred, setpCia, setpProyecto, clean, cleanCia } =
+    useRouter((state) => state);
 
+  //Logout and move to a different credential
   const onChangeCredentials = (selected: Folder) => {
     setpCred(selected);
-    navigate("credential");
+    navigate("/credential");
   };
-
+    
   const changeCia = (selected: Folder) => {
     setpCia(selected);
     if (params.cia) {
@@ -27,9 +23,14 @@ export const useRoutes = () => {
     }
   };
 
+  const onCleanCia = () => {
+    cleanCia();
+    navigate("/credential");
+  };
+
   const changeProyecto = (selected: Folder) => {
     setpProyecto(selected);
-    navigate("proyecto");
+    navigate(0);
   };
 
   const onHome = () => {
@@ -39,6 +40,7 @@ export const useRoutes = () => {
 
   return {
     params,
+    onCleanCia,
     onChangeCredentials,
     changeProyecto,
     changeCia,

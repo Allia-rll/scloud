@@ -94,19 +94,25 @@ export default function FolderMenu({
               className="py-2 text-sm text-gray-700 dark:text-gray-200"
               aria-labelledby="dropdownDefault"
             >
-              {options.map((option) => (
-                <li
-                  onClick={() => {
-                    if (option.name !== selected) onClick(option);
-                    setOpenI(false);
-                  }}
-                  key={uuidv4()}
-                >
-                  <a className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
-                    {option.name}
-                  </a>
+              {options.length <= 0 ? (
+                <li className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                  There's no more options
                 </li>
-              ))}
+              ) : (
+                options.map((option) => (
+                  <li
+                    onClick={() => {
+                      onClick(option);
+                      setOpenI(false);
+                    }}
+                    key={uuidv4()}
+                  >
+                    <a className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                      {option.name}
+                    </a>
+                  </li>
+                ))
+              )}
             </ul>
           </div>
         </div>

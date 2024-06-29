@@ -9,8 +9,23 @@ import InstanceSection from "./InstanceSection/InstanceSection";
 import CiaSection from "./CiasSection/CiaSection";
 import ProjectSection from "./ProjectSection/ProjectSection";
 import FilesSections from "./FilesSections/FilesSection";
+import { useEffect } from "react";
+import { useRoutes } from "./hooks/useRoutes";
+import { useNavigate } from "react-router-dom";
 
 function App() {
+  const { credential, cia, proyecto } = useRoutes().params;
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    let route_0 = `/${
+      credential
+        ? `credential${cia ? `/cia${proyecto && "/proyecto"}` : ""} `
+        : ""
+    }`;
+    navigate(route_0);
+  }, []);
+
   return (
     <>
       <Routes>

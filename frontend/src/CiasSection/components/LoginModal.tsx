@@ -1,10 +1,10 @@
-import { useEffect, useRef } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useStore } from "../../store/store";
 import { LoginInput } from "../../types/formsInterfaces/loginInput";
 import { Folder } from "../../components/FolderCard";
 import { Navigate } from "react-router-dom";
 import { useRoutes } from "../../hooks/useRoutes";
+import Modal from "./Modal";
 
 interface ModalProps {
   isOpen: boolean;
@@ -13,7 +13,7 @@ interface ModalProps {
 }
 
 const LoginModal = ({ isOpen, onClose, cia }: ModalProps) => {
-  if (!cia && isOpen) return <Navigate to="credential" />;
+  if (!cia && isOpen) return <Navigate to="/credential" />;
 
   const { changeCia } = useRoutes();
   const setSession = useStore((state) => state.setSession);
@@ -57,39 +57,8 @@ const LoginModal = ({ isOpen, onClose, cia }: ModalProps) => {
     }
   };
 
-  const modalRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        modalRef.current &&
-        !modalRef.current.contains(event.target as Node)
-      ) {
-        onClose();
-      }
-    };
-
-    if (isOpen) {
-      document.body.style.overflow = "hidden";
-      document.addEventListener("mousedown", handleClickOutside);
-    } else {
-      document.body.style.overflow = "unset";
-      document.removeEventListener("mousedown", handleClickOutside);
-    }
-
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [isOpen, onClose]);
-
-  if (!isOpen) return null;
-
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50">
-      <div
-        ref={modalRef}
-        className="bg-gray-800 p-8 rounded-lg shadow-lg max-w-sm w-full"
-      >
+    <Modal isOpen={isOpen} onClose={onClose}  >
         <div className="flex">
           <h2 className="text-2xl font-semibold text-center mb-4 text-white">
             Login in <span className="font-bold">{cia?.name}</span>
@@ -163,8 +132,7 @@ const LoginModal = ({ isOpen, onClose, cia }: ModalProps) => {
             Log in
           </button>
         </form>
-      </div>
-    </div>
+    </Modal>
   );
 };
 

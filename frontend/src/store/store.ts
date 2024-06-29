@@ -112,6 +112,7 @@ type RouterActions = {
   setpCred: (credential: Folder) => void;
   setpCia: (cia: Folder) => void;
   setpProyecto: (proyecto: Folder) => void;
+  cleanCia: () => void;
   clean: () => void;
 };
 
@@ -132,6 +133,14 @@ export const useRouter = create<Router & RouterActions>()(
           params: {
             credential: state.params.credential,
             cia: cia,
+            proyecto: undefined,
+          },
+        })),
+      cleanCia: () =>
+        set((state) => ({
+          params: {
+            credential: state.params.credential,
+            cia: undefined,
             proyecto: undefined,
           },
         })),
