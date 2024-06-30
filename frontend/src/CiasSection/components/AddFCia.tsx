@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import ModalButton from "../../components/ModalButton";
-import { useFCia, useRouter } from "../../store/store";
+import { useFCia } from "../../store/store";
 import { useForm } from "react-hook-form";
 import { FCiaInput } from "../../types/formsInterfaces/fciainput";
 import { Cia } from "../../types/models/cia";

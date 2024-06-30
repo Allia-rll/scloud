@@ -1,7 +1,6 @@
 import FolderSection from "../components/FolderSection";
-import { useFCia, useFCreds, useRouter } from "../store/store";
-import { useRoutes } from "../hooks/useRoutes";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useFCia, useRouter } from "../store/store";
+import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { Folder } from "../components/FolderCard";
 import { FCia } from "../types/models/fcia";
