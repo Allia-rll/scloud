@@ -59,7 +59,7 @@ export default function UploadZone({ onFileAdded }: UploadZoneProps) {
     return null;
   };
 
-  const { getRootProps, getInputProps, acceptedFiles, fileRejections } =
+  const { getRootProps, getInputProps, fileRejections } =
     useDropzone({
       onDrop: (acceptedFiles) => {
         const file = acceptedFiles[0];

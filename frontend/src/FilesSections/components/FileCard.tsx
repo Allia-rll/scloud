@@ -11,9 +11,9 @@ interface FileCardProps {
 export default function FileCard({ file }: FileCardProps) {
   const [isModalOpen, setModalOpen] = useState(false);
 
-  const handleOpenModal = () => {
+/*   const handleOpenModal = () => {
     setModalOpen(true);
-  };
+  }; */
 
   const handleCloseModal = () => {
     setModalOpen(false);
@@ -29,10 +29,10 @@ export default function FileCard({ file }: FileCardProps) {
     console.log("webContentLink", file.url.webContentLink)
   }
 
-  const deleteFile = () => {
+/*   const deleteFile = () => {
     console.log("delete file")
   }
-
+ */
   return (
     <div
       className="max-w-sm bg-gray-800 border border-gray-700 rounded-lg shadow" 

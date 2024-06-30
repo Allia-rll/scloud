@@ -1,5 +1,4 @@
 import { FProyecto } from "../../../types/models/fproyecto";
-import { Proyecto } from "../../../types/models/proyecto";
 
 interface DropdownOptionsProps {
   onClick: (value: string) => void;

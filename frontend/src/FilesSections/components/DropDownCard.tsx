@@ -1,5 +1,3 @@
-"use client";
-import React from "react";
 import { useState } from "react";
 
 export default function DropDownCard({ id, openInNewTab, download }: { id: number, openInNewTab: () => void, download: () => void}) {

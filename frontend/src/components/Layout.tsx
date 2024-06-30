@@ -1,8 +1,5 @@
-import { Outlet, useLocation, useNavigate } from "react-router-dom";
-import Upload from "../dashboard/upload/Upload";
-import LogOut from "../dashboard/components/LogOut";
-import { useParams, Navigate } from "react-router-dom";
-import { useEffect, useRef } from "react";
+import { Outlet, useLocation } from "react-router-dom";
+import { useEffect } from "react";
 import { useState } from "react";
 import FolderMenu from "./FolderMenu";
 import { Credentials } from "../types/models/credentials";
@@ -13,7 +10,6 @@ import { Home } from "./Home";
 import ButtonsGroup from "./ButtonsGroup";
 import TextMenu from "./TextMenu";
 import LogOutModal from "../CiasSection/components/LogOutModal";
-import { set } from "react-hook-form";
 
 const Layout = () => {
   const location = useLocation();

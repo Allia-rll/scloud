@@ -1,9 +1,6 @@
 import "./App.css";
 import { Routes, Route, Navigate } from "react-router-dom";
-import Login from "./auth/login/Login";
 import Layout from "./components/Layout";
-import ProtectedRoute from "./components/ProtectedRoute";
-import NotProtectedRoute from "./components/NotProtectedRoute";
 import InstanceSection from "./InstanceSection/InstanceSection";
 import CiaSection from "./CiasSection/CiaSection";
 import ProjectSection from "./ProjectSection/ProjectSection";

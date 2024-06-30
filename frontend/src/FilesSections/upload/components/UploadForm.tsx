@@ -2,9 +2,6 @@ import { FileInput } from "../../../types/formsInterfaces/fileInput";
 import { useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import DropdownOptions from "./DropDownOptions";
-import { Proyecto } from "../../../types/models/proyecto";
-import { useStore } from "../../../store/store";
-import { Cia } from "../../../types/models/cia";
 import { useRoutes } from "../../../hooks/useRoutes";
 import { FProyecto } from "../../../types/models/fproyecto";
 
@@ -14,7 +11,6 @@ interface UploadFormProps {
 }
 
 export default function UploadForm({ onFileUploaded, file }: UploadFormProps) {
-  const cia = useStore((state) => state.session.cia) as Cia;
   const { params } = useRoutes();
 
   const [open, setOpen] = useState<boolean>(false);

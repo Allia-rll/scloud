@@ -1,9 +1,7 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import ModalButton from "../../components/ModalButton";
-import { useFCia, useFPyto, useRouter, useStore } from "../../store/store";
+import { useFPyto, useStore } from "../../store/store";
 import { useForm } from "react-hook-form";
-import { FCiaInput } from "../../types/formsInterfaces/fciainput";
-import { Cia } from "../../types/models/cia";
 import DropdownOptions from "./DropdownOptions";
 import { useRoutes } from "../../hooks/useRoutes";
 import { Proyecto } from "../../types/models/proyecto";
