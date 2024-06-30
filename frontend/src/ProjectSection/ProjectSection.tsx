@@ -56,6 +56,6 @@ export default function ProjectSection() {
   }, [params.cia]);
 
   return (
-    <FolderSection folders={proyectos} icon="" onClick={changeProyecto} />
+    <FolderSection folders={proyectos} icon="/icons/default-pyto-icon.png" onClick={changeProyecto} />
   );
 }

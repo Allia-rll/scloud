@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { FileSchema } from "../types/models/files";
 import FileCard from "./components/FileCard";
 import { useFiles, useRouter } from "../store/store";

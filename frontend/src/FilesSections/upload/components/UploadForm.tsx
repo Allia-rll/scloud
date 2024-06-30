@@ -35,7 +35,9 @@ export default function UploadForm({ onFileUploaded, file }: UploadFormProps) {
       console.log(data);
       data.codfcia = params.cia?.cod || "";
       data.codcred = params.credential?.cod || "";
-      data.codfpyto = projects.find(p => p.codfproyecto === data.codfpyto)?.codfproyecto || "";
+      data.codfpyto =
+        projects.find((p) => p.codfproyecto === data.codfpyto)?.codfproyecto ||
+        "";
       await onFileUploaded(data);
     } catch (error) {
       if (error instanceof Error) {
@@ -79,7 +81,10 @@ export default function UploadForm({ onFileUploaded, file }: UploadFormProps) {
 
   return (
     <div className="relative w-full max-w-md max-h-full">
-      <div className="relative bg-slate-700 rounded-lg shadow">
+      <div
+        className="relative bg-slate-700 rounded-lg shadow overflow-auto"
+        style={{ height: "70vh" }}
+      >
         <div className="flex items-center justify-between p-4 md:p-5 border-b rounded-t border-gray-600">
           <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
             Upload New File
@@ -87,7 +92,7 @@ export default function UploadForm({ onFileUploaded, file }: UploadFormProps) {
         </div>
         <form className="p-4 md:p-5" onSubmit={handleSubmit(onSubmit)}>
           <div className="grid gap-4 mb-4 grid-cols-2">
-          <div className="col-span-2">
+            <div className="col-span-2">
               <label
                 htmlFor="codcred"
                 className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"

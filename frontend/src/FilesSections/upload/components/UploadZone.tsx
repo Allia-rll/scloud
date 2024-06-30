@@ -93,7 +93,7 @@ export default function UploadZone({ onFileAdded }: UploadZoneProps) {
           className="flex flex-col items-center justify-center pt-5 pb-6 w-full px-4 h-28 border-2 border-gray-600 border-dashed rounded-lg cursor-pointer bg-gray-700 hover:bg-bray-800 hover:bg-gray-600 hover:border-gray-500"
         >
           <img
-            src="icons/cloud-icon.svg"
+            src="/icons/cloud-icon.svg"
             alt="cloud-icon"
             className="w-8 h-8"
           />

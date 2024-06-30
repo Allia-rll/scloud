@@ -60,7 +60,7 @@ export default function CiaSection() {
 
   return (
     <>
-      <FolderSection folders={fcias} onClick={handleOpenModal} icon="" />
+      <FolderSection folders={fcias} onClick={handleOpenModal} icon="/icons/default-cia-icon.png" />
       <LoginModal
         isOpen={open}
         onClose={() => setOpen(false)}

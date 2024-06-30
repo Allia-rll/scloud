@@ -23,7 +23,7 @@ export default function FolderCard({ folder, onClick, icon }: FolderCardProps) {
         onClick={() => onClick(folder)}
       >
         <img
-          className="rounded-lg object-cover pb-4 w-full h-full"
+          className="rounded-lg object-contain pb-4 w-full h-full"
           src={icon}
           alt={folder.name}
         />
