@@ -14,6 +14,7 @@ export default function ButtonsGroup() {
     return (
       <div className="flex-grow flex right-24 justify-end">
         <Upload />
+        <LogOut />
       </div>
     );
   }

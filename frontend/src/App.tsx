@@ -16,7 +16,7 @@ function App() {
   useEffect(() => {
     let route_0 = `/${
       credential
-        ? `credential${cia ? `/cia${proyecto && "/proyecto"}` : ""} `
+        ? `credential${cia ? `/cia${proyecto ? "/proyecto" : ""}` : ""} `
         : ""
     }`;
     navigate(route_0);

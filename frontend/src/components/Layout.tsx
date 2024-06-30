@@ -68,7 +68,9 @@ const Layout = () => {
                 <>
                   <FolderMenu
                     selected={credential.name}
-                    onClick={handleChangeCredential}
+                    onClick={location.pathname.startsWith("/credential/cia")
+                      ? handleChangeCredential
+                      : onChangeCredentials}
                     options={credentials}
                   />
                   <LogOutModal

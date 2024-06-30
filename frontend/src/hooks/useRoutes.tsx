@@ -30,7 +30,7 @@ export const useRoutes = () => {
 
   const changeProyecto = (selected: Folder) => {
     setpProyecto(selected);
-    navigate(0);
+    navigate("/credential/cia/proyecto");
   };
 
   const onHome = () => {
