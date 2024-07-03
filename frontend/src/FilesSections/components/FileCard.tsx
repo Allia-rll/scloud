@@ -52,7 +52,7 @@ export default function FileCard({ file }: FileCardProps) {
       >
         <img
           className="rounded-lg object-cover w-full h-full"
-          src={file.url.thumbnailLink}
+          src={file.url.thumbnailLink ? file.url.thumbnailLink : "/icons/default-file-icon.png"}
           alt={file.filename}
         />
       </div>

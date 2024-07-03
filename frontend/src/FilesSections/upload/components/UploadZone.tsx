@@ -8,7 +8,7 @@ interface UploadZoneProps {
 const ERRORS = {
   invalid_file_type: "Not file supported",
   too_many_files: "You can only upload one file at a time",
-  file_too_large: "There is a file too large",
+  file_too_large: "Max size = 100MB",
   file_not_found: "No file found",
   upload_failed: "Upload failed",
 };
@@ -50,24 +50,25 @@ export default function UploadZone({ onFileAdded }: UploadZoneProps) {
         message: ERRORS.invalid_file_type,
       };
 
-    if (file.size > 1024 * 1024 * 10)
+    if (file.size > 1024 * 1024 * 100) {
+      console.log("file too large");
       return {
         code: "file-too-large",
         message: ERRORS.file_too_large,
       };
+    }
 
     return null;
   };
 
-  const { getRootProps, getInputProps, fileRejections } =
-    useDropzone({
-      onDrop: (acceptedFiles) => {
-        const file = acceptedFiles[0];
-        onFileAdded(file);
-      },
-      validator: validateFiles,
-      maxFiles: 1,
-    });
+  const { getRootProps, getInputProps, fileRejections } = useDropzone({
+    onDropAccepted: (aceeptedFiles) => {
+      const file = aceeptedFiles[0];
+      onFileAdded(file);
+    },
+    validator: validateFiles,
+    maxFiles: 1,
+  });
 
   const errorsMessage = useMemo(() => {
     if (fileRejections[0]) {
