@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export default function DropDownCard({ id, openInNewTab, download }: { id: number, openInNewTab: () => void, download: () => void}) {
+export default function DropDownCard({ id, openDetails, openInNewTab, download }: { id: number, openDetails: () => void, openInNewTab: () => void, download: () => void}) {
     const [isOpen, setIsOpen] = useState(false);
 
     const handleClick = () => {
@@ -31,6 +31,15 @@ export default function DropDownCard({ id, openInNewTab, download }: { id: numbe
         className={`z-10 fixed ${!isOpen && "hidden"} text-base list-none bg-gray-700 divide-y divide-gray-100 rounded-lg shadow w-44`}
       >
         <ul className="py-2" aria-labelledby={`dropdownButton-${id}`}>
+        <li>
+            <a
+              href="#"
+              onClick={openDetails}
+              className="block px-4 py-2 text-sm text-gray-200 hover:bg-gray-600 hover:text-white"
+            >
+              Details
+            </a>
+          </li>
           <li>
             <a
               href="#"

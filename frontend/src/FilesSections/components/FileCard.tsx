@@ -1,8 +1,7 @@
-
 import { useState } from "react";
 import { FileSchema } from "../../types/models/files";
 import DropDownCard from "./DropDownCard";
-import Modal from "./Modal";
+import Modal from "../../CiasSection/components/Modal";
 
 interface FileCardProps {
   file: FileSchema;
@@ -11,9 +10,9 @@ interface FileCardProps {
 export default function FileCard({ file }: FileCardProps) {
   const [isModalOpen, setModalOpen] = useState(false);
 
-/*   const handleOpenModal = () => {
+  const handleOpenModal = () => {
     setModalOpen(true);
-  }; */
+  };
 
   const handleCloseModal = () => {
     setModalOpen(false);
@@ -21,27 +20,31 @@ export default function FileCard({ file }: FileCardProps) {
 
   const openFileInNewTab = () => {
     window.open(file.url.webViewLink, "_blank");
-    console.log("webViewLink", file.url.webViewLink)
+    console.log("webViewLink", file.url.webViewLink);
   };
-  
+
   const downloadFile = () => {
     window.open(file.url.webContentLink, "_blank");
-    console.log("webContentLink", file.url.webContentLink)
-  }
+    console.log("webContentLink", file.url.webContentLink);
+  };
 
-/*   const deleteFile = () => {
+  /*   const deleteFile = () => {
     console.log("delete file")
   }
  */
   return (
-    <div
-      className="max-w-sm bg-gray-800 border border-gray-700 rounded-lg shadow" 
-    >
+    <div className="max-w-sm bg-gray-800 border border-gray-700 rounded-lg shadow">
       <div className="rounded-t-lg my-2 h-6 flex items-center">
         <h5 className="flex-grow mx-4 overflow-hidden text-ellipsis whitespace-nowrap text-base font-bold tracking-tight text-white">
           {file.filename}
         </h5>
-        <DropDownCard key={file.codfile} id={file.codfile} openInNewTab={openFileInNewTab} download={downloadFile} />
+        <DropDownCard
+          key={file.codfile}
+          openDetails={handleOpenModal}
+          id={file.codfile}
+          openInNewTab={openFileInNewTab}
+          download={downloadFile}
+        />
       </div>
       <div
         className="max-w-sm h-24 mx-4 cursor-pointer"
@@ -58,12 +61,29 @@ export default function FileCard({ file }: FileCardProps) {
           Creado el: {file.created_at}
         </p>
       </div>
-      <Modal
-          isOpen={isModalOpen}
-          onClose={handleCloseModal}
-          content={file.url.webContentLink}
-          type={file.type}
-        />
+      <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
+        <div className="relative">
+          <button
+            className="absolute text-lg top-0 right-0 text-white"
+            onClick={() => {
+              handleCloseModal();
+            }}
+          >
+            &times;
+          </button>
+          <h3 className="text-2xl font-bold text-white border-b border-gray-400 mb-4 pb-2">
+            Detalles del Archivo
+          </h3>
+          <h3 className="text-base text-white">{`>     `}Nombre del Archivo</h3>
+          <h2 className="text-xl font-bold text-white mb-2">{file.filename}</h2>
+          <h3 className="text-base text-white">{`>     `}Descripción</h3>
+          <p className="text-xl font-bold text-white mb-2">
+            {file.description}
+          </p>
+          <h3 className="text-base text-white">{`>     `}Creado el</h3>
+          <p className="text-xl font-bold text-white mb-2">{file.created_at}</p>
+        </div>
+      </Modal>
     </div>
   );
 }
