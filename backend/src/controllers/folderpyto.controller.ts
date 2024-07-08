@@ -28,7 +28,8 @@ const createFolderPyto = async (req: Request, res: Response) => {
     res.json({ success: true, data: result});
   } catch (error: any) {
     if (error instanceof Error) {
-      return res.status(400).send({ message: error.message });
+      console.log(error.message)
+      // return res.status(400).send({ message: error.message });
     }
 
     res.status(400).send({ message: "Error creating folder" });
@@ -50,7 +51,8 @@ const getByFCia = async (req: Request, res: Response) => {
     res.json({ success: true, data: result });
   } catch (error: any) {
     if (error instanceof Error) {
-      return res.status(400).send({ message: error.message });
+      console.log(error.message)
+      // return res.status(400).send({ message: error.message });
     }
 
     res.status(400).send({ message: "Error fetching folder" });
@@ -79,7 +81,8 @@ const validateFPytoId = async (req: Request, res: Response) => {
 
   } catch (error: any) {
     if (error instanceof Error) {
-      return res.status(400).send({ message: error.message });
+      console.log(error.message)
+      // return res.status(400).send({ message: error.message });
     }
 
     res.status(400).send({ message: "Error validating folder" });
