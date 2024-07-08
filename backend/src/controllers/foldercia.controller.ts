@@ -22,10 +22,12 @@ const createFolderCia = async (req: Request, res: Response) => {
     res.json({ success: true, data: result });
   } catch (error: any) {
     if (error instanceof Error) {
-      return res.status(400).send({ message: error.message });
+      console.error(error.message);
     }
-
-    res.status(400).send({ message: "Error creating folder" });
+    res.status(400).send({
+      success: false,
+      message: "Error creando folder de la CIA",
+    });
   }
 };
 
@@ -40,10 +42,12 @@ const getByCredentials = async (req: Request, res: Response) => {
     res.json({ success: true, data: result });
   } catch (error: any) {
     if (error instanceof Error) {
-      return res.status(400).send({ message: error.message });
+      console.error(error.message);
     }
-
-    res.status(400).send({ message: "Error getting folder" });
+    res.status(400).send({
+      success: false,
+      message: "Error obteniendo folders de la credencial",
+    });
   }
 };
 
@@ -62,10 +66,12 @@ const validateFCiaId = async (req: Request, res: Response) => {
 
   } catch (error: any) {
     if (error instanceof Error) {
-      return res.status(400).send({ message: error.message });
+      console.error(error.message);
     }
-
-    res.status(400).send({ message: "Error getting folder" });
+    res.status(400).send({
+      success: false,
+      message: "Ruta no valida",
+    });
   }
 };
 

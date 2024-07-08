@@ -26,11 +26,10 @@ const create = async (req: Request, res: Response) => {
     const result = await creds.createCreds(req.body);
     res.json({ success: true, data: result });
   } catch (error: any) {
-    if (error instanceof Error) {
-      res.status(400).send({ message: error.message });
+    if(error instanceof Error) {
+      console.error(error.message);
     }
-
-    res.status(400).send({ message: "Error creating credentials" });
+    res.status(400).send({ success: false, message: "Error creando las credenciales" });
   }
 };
 

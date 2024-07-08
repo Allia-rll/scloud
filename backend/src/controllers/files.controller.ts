@@ -19,7 +19,10 @@ const create = async (req: Request, res: Response) => {
       throw new Error("One file per upload");
     }
   } catch (error: any) {
-    res.status(400).send({ message: error.message });
+    if(error instanceof Error) {
+      console.error(error.message);
+    }
+    res.status(400).send({ success: false, message: "Error creando el archivo" });
   }
 };
 
@@ -30,7 +33,10 @@ const getByFPyto = async (req: Request, res: Response) => {
     const response = await service.getByFPyto(codfpyto, creds);
     res.json({ success: true, data: response });
   } catch (error) {
-    res.status(400).send({ message: "error.message" });
+    if(error instanceof Error) {
+      console.error(error.message);
+    }
+    res.status(400).send({ success: false, message: "Error obteniendo los proyectos" });
   }
 };
 

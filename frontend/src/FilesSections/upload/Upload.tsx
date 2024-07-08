@@ -10,7 +10,7 @@ import { useRoutes } from "../../hooks/useRoutes";
 export default function Upload() {
   const cia = useStore((state) => state.session.cia);
   if (!cia) return <Navigate to="/" />;
-
+  const [error, setError] = useState<string | null>(null);
   const [open, setOpen] = useState(false);
   const [file, setFile] = useState<File | null>(null);
   const updtFile = useFiles((state) => state.updateFiles);
@@ -33,6 +33,11 @@ export default function Upload() {
       .then((res) => res.json())
       .catch((err) => console.error(err));
 
+    
+    if(!res.success) {
+      setError(res.message);
+      return;
+    };
     console.log("NEW FILE");
     console.log(res);
     setOpen(false);
@@ -55,6 +60,11 @@ export default function Upload() {
       />
       {open && (
         <div className="relative z-50 w-96 h-max mt-3">
+          {error && (
+            <div className="bg-red-500 text-white p-2 rounded-lg mb-2">
+              {error}
+            </div>
+          )}
           {file === null ? (
             <UploadZone onFileAdded={onFileAdded} />
           ) : (

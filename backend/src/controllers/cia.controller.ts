@@ -11,7 +11,13 @@ const getAll = async (req: Request, res: Response) => {
     console.log(response);
     res.json({ success: true, data: response });
   } catch (error) {
-    res.status(400).send({ message: "err" });
+    if (error instanceof Error) {
+      console.error(error.message);
+    }
+    res.status(400).send({
+      success: false,
+      message: "Error obteniendo la información de las Cia",
+    });
   }
 };
 
@@ -20,7 +26,13 @@ const getById = async (req: Request, res: Response) => {
     const response = await service.getCiaById(Number(req.params.id));
     res.json({ success: true, data: response });
   } catch (error) {
-    res.status(400).send({ message: "Error getting Cia Information" });
+    if (error instanceof Error) {
+      console.error(error.message);
+    }
+    res.status(400).send({
+      success: false,
+      message: "Error obteniendo la información de la Cia",
+    });
   }
 };
 
@@ -38,7 +50,13 @@ const getWithoutFolder = async (req: Request, res: Response) => {
     const response = await service.getCiasWhitoutFolder(codcred);
     res.json({ success: true, data: response });
   } catch (error) {
-    res.status(400).send({ message: "Error getting Cia Information" });
+    if (error instanceof Error) {
+      console.error(error.message);
+    }
+    res.status(400).send({
+      success: false,
+      message: "Error obteniendo la información de la Cia",
+    });
   }
 };
 
@@ -52,7 +70,13 @@ const getByFolder = async (req: Request, res: Response) => {
     const response = await service.getByFolder(codfcia);
     res.json({ success: true, data: response });
   } catch (error) {
-    res.status(400).send({ message: "Error getting Cia Information" });
+    if (error instanceof Error) {
+      console.error(error.message);
+    }
+    res.status(400).send({
+      success: false,
+      message: "Error obteniendo la información de la Cia",
+    });
   }
 };
 export default { getAll, getById, getWithoutFolder, getByFolder };

@@ -8,7 +8,13 @@ const getProyectsbyCia = async (req: Request, res: Response) => {
     const response = await service.getProyectsbyCia(Number(req.params.codcia));
     res.json({ success: true, data: response });
   } catch (error) {
-    res.status(400).send({ message: "Error getting Proyecto Information" });
+    if (error instanceof Error) {
+      console.error(error.message);
+    }
+    res.status(400).send({
+      success: false,
+      message: "Error obteniendo la información del proyecto",
+    });
   }
 };
 
@@ -22,7 +28,13 @@ const getWithoutFolder = async (req: Request, res: Response) => {
     const response = await service.getProyectWithOutFolder(codfcia, codcia);
     res.json({ success: true, data: response });
   } catch (error) {
-    res.status(400).send({ message: "Error getting Proyecto Information" });
+    if (error instanceof Error) {
+      console.error(error.message);
+    }
+    res.status(400).send({
+      success: false,
+      message: "Error obteniendo la información del proyecto",
+    });
   }
 };
 

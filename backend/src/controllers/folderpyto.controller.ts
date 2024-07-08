@@ -28,10 +28,12 @@ const createFolderPyto = async (req: Request, res: Response) => {
     res.json({ success: true, data: result});
   } catch (error: any) {
     if (error instanceof Error) {
-      return res.status(400).send({ message: error.message });
+      console.error(error.message);
     }
-
-    res.status(400).send({ message: "Error creating folder" });
+    res.status(400).send({
+      success: false,
+      message: "Error creando el folder",
+    });
   }
 };
 
@@ -50,10 +52,12 @@ const getByFCia = async (req: Request, res: Response) => {
     res.json({ success: true, data: result });
   } catch (error: any) {
     if (error instanceof Error) {
-      return res.status(400).send({ message: error.message });
+      console.error(error.message);
     }
-
-    res.status(400).send({ message: "Error fetching folder" });
+    res.status(400).send({
+      success: false,
+      message: "Error obteniendo el folder de los proyectos de la cia",
+    });
   }
 };
 
@@ -79,10 +83,12 @@ const validateFPytoId = async (req: Request, res: Response) => {
 
   } catch (error: any) {
     if (error instanceof Error) {
-      return res.status(400).send({ message: error.message });
+      console.error(error.message);
     }
-
-    res.status(400).send({ message: "Error validating folder" });
+    res.status(400).send({
+      success: false,
+      message: "Ruta no valida",
+    });
   }
 };
 
