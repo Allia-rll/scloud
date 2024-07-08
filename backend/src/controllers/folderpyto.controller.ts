@@ -28,7 +28,8 @@ const createFolderPyto = async (req: Request, res: Response) => {
     res.json({ success: true, data: result});
   } catch (error: any) {
     if (error instanceof Error) {
-      console.error(error.message);
+      console.log(error.message)
+      // return res.status(400).send({ message: error.message });
     }
     res.status(400).send({
       success: false,
@@ -52,7 +53,8 @@ const getByFCia = async (req: Request, res: Response) => {
     res.json({ success: true, data: result });
   } catch (error: any) {
     if (error instanceof Error) {
-      console.error(error.message);
+      console.log(error.message)
+      // return res.status(400).send({ message: error.message });
     }
     res.status(400).send({
       success: false,
@@ -83,7 +85,8 @@ const validateFPytoId = async (req: Request, res: Response) => {
 
   } catch (error: any) {
     if (error instanceof Error) {
-      console.error(error.message);
+      console.log(error.message)
+      // return res.status(400).send({ message: error.message });
     }
     res.status(400).send({
       success: false,
